@@ -44,13 +44,13 @@ public class UnaryExprNodePatch
             case "~":
             {
                 if (rhs is not PyNumber number)
-                    throw new ExecuteException(CodeUtilities.FormatError("error_bad_unary_operator", op, rhs));
+                    throw new ExecuteException(CodeUtilities.LocalizeAndFormat("error_bad_unary_operator", op, rhs));
 
                 // Source: https://stackoverflow.com/a/2751597
                 if (Math.Abs(number.num % 1) >= (double.Epsilon * 100))
                 {
                     // number is not an integer
-                    throw new ExecuteException(CodeUtilities.FormatError("error_bad_unary_operator", op, rhs));
+                    throw new ExecuteException(CodeUtilities.LocalizeAndFormat("error_bad_unary_operator", op, rhs));
                 }
 
                 var num = Convert.ToInt32(number.num);
@@ -61,7 +61,7 @@ public class UnaryExprNodePatch
             case "f":
             {
                 if (rhs is not PyString pyString)
-                    throw new ExecuteException(CodeUtilities.FormatError("error_bad_unary_operator", op, rhs));
+                    throw new ExecuteException(CodeUtilities.LocalizeAndFormat("error_bad_unary_operator", op, rhs));
 
                 // Step 1: Extract all the {} expressions from the string
                 var parts = StrFmtParser.SplitOnExpressions(pyString.str);
